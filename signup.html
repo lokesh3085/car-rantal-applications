@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Car Rental</title>
+	<style>body {
+        font-family: Arial, sans-serif;
+        background-image: url("background.avif");
+        background-size: cover;
+    }
+    
+    .container {
+        margin: 50px auto;
+        padding: 20px;
+        max-width: 400px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #3e8e41;
+    }
+</style>
+    
+<script>
+    async function registerUser(event){
+        event.preventDefault()
+        const name = document.getElementById('text').value
+        const email = document.getElementById('email').value
+        const phone = document.getElementById('tel').value
+        const password = document.getElementById('password').value
+        const password_confirmation = document.getElementById('password_confirmation').value
+    
+        const result = await fetch('/register',{
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({
+             name,
+             email,
+             phone,
+             password,
+             password_confirmation
+             })
+        }).then((res) => res.json())
+    
+        if (result.status === 'ok') {
+           alert('success');
+           // on a successful signup, redirect user to the login page
+           window.location.href = 'http://127.0.0.1:5500/login1.html'; // exp. http://localhost/signin.html
+        }else {
+          alert (result.error)
+        }
+      }
+    </script>
+</head>
+<body>
+	<div class="container">
+		<h1>Sign Up</h1>
+		<form action="signup.php" method="post">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required>
+			
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required>
+	        
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			
+			<label for="confirm-password">Confirm Password:</label>
+			<input type="password" id="confirm-password" name="confirm-password" required>
+			
+			<input type="submit" value="Sign Up" class="submit-btn" onclick="registerUser(event)" />
+            <p>If you have an account? <a href="login1.html">login</a> here.</p>
+
+		</form>
+	</div>
+    include(" The name of the PHP file ");
+
+    <?php
+    include(" signup.php ");
+    ?>
+</body>
+</html>

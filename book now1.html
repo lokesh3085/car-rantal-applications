@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Car Rental Booking Form</title>
+    <style>	
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("background.avif");
+            background-size: cover;
+        }
+        
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="date"]{
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+    </style>   
+	<script>// get form element
+const form = document.querySelector('form');
+
+// listen for form submission
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // prevent form submission
+
+  // get form data
+  const name = form.elements['name'].value;
+  const email = form.elements['email'].value;
+  const phone = form.elements['phone'].value;
+  const pickupDate = form.elements['pickup-date'].value;
+  const returnDate = form.elements['return-date'].value;
+  const pickupLocation = form.elements['pickup-location'].value;
+  const returnLocation = form.elements['return-location'].value;
+  const carType = form.elements['car-type'].value;
+
+  // validate form data
+  if (!name || !email || !phone || !pickupDate || !returnDate || !pickupLocation || !returnLocation || !carType) {
+    alert('Please fill in all the fields');
+    return;
+  }
+
+  // create booking object
+  const booking = {
+    name: name,
+    email: email,
+    phone: phone,
+    pickupDate: pickupDate,
+    returnDate: returnDate,
+    pickupLocation: pickupLocation,
+    returnLocation: returnLocation,
+    carType: carType
+  };
+
+  // send booking data to server
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'booking.php', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      alert('Booking successful');
+      form.reset(); // reset from
+    } else {
+      alert('Booking failed');
+    }
+  };
+  xhr.send(JSON.stringify(booking));
+});
+</script>
+</head>
+<body>
+	<div class="container">
+		<h1>Car Rental Booking Form</h1>
+		<form action="booking.php" method="post">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required>
+			
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required>
+			
+			<label for="phone">Phone:</label>
+			<input type="tel" id="phone" name="phone" required>
+
+      <label for="aadaar">Aadaar:</label>
+      <input type="text" id="txtAadhaar" />
+
+      <label for="Driving license">Driving license</label>
+
+			
+			<label for="pickup-date">Pickup Date:</label>
+			<input type="date" id="pickup-date" name="pickup-date" required>
+			
+			<label for="return-date">Return Date:</label>
+			<input type="date" id="return-date" name="return-date" required>
+			
+			<label for="pickup-location">Pickup Location:</label>
+			<select id="pickup-location" name="pickup-location" required>
+				<option value="">Select Pickup Location</option>
+				<option value="Downtown">Bus Station</option>
+				<option value="Airport">Airport</option>
+				<option value="Train Station">Train Station</option>
+			</select>
+			
+			<label for="return-location">Return Location:</label>
+			<select id="return-location" name="return-location" required>
+				<option value="">Select Return Location</option>
+				<option value="Downtown">Bus Station</option>
+				<option value="Airport">Airport</option>
+				<option value="Train Station">Train Station</option>
+			</select>
+			
+			<label for="car-type">Car Type:</label>
+			<select id="car-type" name="car-type" required>
+				<option value="">Select Car Type</option>
+				<option value="Economy">Economy</option>
+				<option value="Compact">Compact</option>
+				<option value="Midsize">Midsize</option>
+				<option value="Fullsize">Fullsize</option>
+				<option value="Luxury">Luxury</option>
+			</select>
+			
+			<input type="submit" value="Book Now">
+		</form>
+	</div>
+</body>
+</html>
