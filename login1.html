@@ -76,7 +76,7 @@
 			<input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
           
-          <input type="submit" value="Login" class="submit-btn" onclick="auth()" />
+          <input type="submit" a href="homepage.html">Login</submit>
 
           <span class="psw">Forgot <a href="password.html">password?</a></span>
 
@@ -84,33 +84,7 @@
 		</form>
 	</div>
     <script>
-        function auth(){
-            var email= Document.getElementById("email").value;
-             var password= document.getElementByld("password").value;
-            if(email== "admin@gmail.com" && password=="admin123"){
-                window.location.href="homepage.html";
-                alert( "Login Successfully ");
-            }
-            else{
-                 alert( "Invalid Information ");
-                 return;
-            }
-        }
-    
-        </script>
-    <?php
 
-// Get form data
-$email = $_POST["email"];
-$password = $_POST["password"];
-
-// Add validation and database code here...
-
-// Redirect to success page
-header("Location: success.php");
-exit;
-
-?>
 
 </body>
 </html>
